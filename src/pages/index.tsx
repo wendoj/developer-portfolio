@@ -3,6 +3,9 @@ import Container from "../components/Container";
 import Spline from "@splinetool/react-spline";
 import { Suspense } from "react";
 import { motion } from "framer-motion";
+import Project from "../components/Project";
+import VanillaTilt from "vanilla-tilt";
+import { useEffect } from "react";
 
 /* Framer motion animation presets */
 const sentence = {
@@ -27,6 +30,16 @@ const letter = {
 const line1 = "WendoJ";
 
 const Home: NextPage = () => {
+  /* Project card tilt hover effect */
+  useEffect(() => {
+    VanillaTilt.init(document.querySelectorAll("#project-card") as any, {
+      speed: 400,
+      glare: true,
+      "max-glare": 0.1,
+      perspective: 1000,
+    });
+  }, []);
+
   return (
     <Container>
       <section className="mt-[15rem] h-[100vh] flex flex-col lg:flex-row lg:mt-0 justify-between items-center">
@@ -63,7 +76,7 @@ const Home: NextPage = () => {
             >
               <a
                 href="#contact"
-                className="relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-bold text-white rounded-md shadow-2xl group"
+                className="relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-bold text-white shadow-2xl group"
               >
                 <span className="absolute inset-0 w-full h-full transition duration-300 ease-out group-hover:opacity-80 bg-gradient-to-r from-[#32e7e440] to-transparent opacity-100" />
                 <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-[#32e7e47f] to-transparent opacity-[0.02] h-1/3" />
@@ -133,6 +146,84 @@ const Home: NextPage = () => {
               <li>three.js</li>
             </ol>
           </span>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div className="mt-[15rem] flex flex-col">
+          <h2 className="text-4xl font-semibold border-r mb-4">Projects</h2>
+
+          {/* Grid of past projcets */}
+          <motion.div
+            className="project-grid gap-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Project
+              name="Spicy jalapeno"
+              image=""
+              description="Short loin t-bone shankle, tail ribeye venison jowl hamburger. Ball tip frankfurter swine, leberkas pig jerky t-bone salami."
+            />
+            <Project
+              name="Short ribs"
+              image=""
+              description="Short loin cupim strip steak prosciutto kevin tongue picanha sirloin. Landjaeger beef ham hock."
+            />
+            <Project
+              name="Turducken"
+              image=""
+              description="Bacon burgdoggen shoulder pork loin prosciutto ball tip tail short loin pork chop kielbasa corned beef."
+            />
+            <Project
+              name="Drumstick"
+              image=""
+              description="Burgdoggen pancetta kielbasa shank ground round ball tip pork loin bacon sausage tongue chuck."
+            />
+            <Project
+              name="Burgdoggen"
+              image=""
+              description="Turkey chislic alcatra venison. Meatloaf pork turducken, porchetta doner rump bacon jowl bresaola sirloin."
+            />
+          </motion.div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div className="mt-[15rem] flex justify-center flex-col gap-5 items-center">
+          <h1 className="font-semibold text-4xl text-center">Contact Me</h1>
+          <p className="opacity-50 mx-10 max-w-lg text-center">
+            I am always open to new opportunities so feel free to reach out if
+            you have a project in mind or if you have a question to ask me;
+            I&apos;ll try my best to get back to you!
+          </p>
+          <motion.button
+            whileHover={{ scale: 1.025 }}
+            whileTap={{ scale: 0.975 }}
+          >
+            <a
+              href="mailto:wendoj@protonmail.com"
+              className="relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-bold text-white shadow-2xl group"
+            >
+              <span className="absolute inset-0 w-full h-full transition duration-300 ease-out group-hover:opacity-80 bg-gradient-to-r from-[#32e7e440] to-transparent opacity-100" />
+              <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-[#32e7e47f] to-transparent opacity-[0.02] h-1/3" />
+              <span className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#32E7E3] to-transparent opacity-[0.02]" />
+              <span className="absolute bottom-0 left-0 w-4 h-full bg-gradient-to-r from-[#32E7E3] to-transparent opacity-[0.02]" />
+              <span className="absolute bottom-0 right-0 w-4 h-full bg-gradient-to-l from-[#32E7E3] to-transparent opacity-[0.02]" />
+              <span className="absolute inset-0 w-full h-full border border-[#32e7e47f] rounded-md opacity-10" />
+              <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-5" />
+              <span className="relative">Say Hello</span>
+            </a>
+          </motion.button>
+          <div className="h-[50vh]">
+            <Suspense fallback={<div>Loading...</div>}>
+              <Spline
+                scene="https://prod.spline.design/v66eIFGDtN7TJzPC/scene.splinecode"
+                width="100vw"
+                height="100vh"
+              />
+            </Suspense>
+          </div>
         </div>
       </section>
     </Container>

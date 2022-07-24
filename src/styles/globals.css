@@ -14,11 +14,17 @@ body {
   -webkit-text-size-adjust: 100%;
   font-family: "IBM Plex Sans", sans-serif;
 
-  background-color: var(--background-color);
+  background: var(--background-color) url("/static/background.webp") no-repeat
+    center center fixed;
   color: var(--text-color);
 
   min-width: 360px;
   width: 100%;
   height: 100%;
   margin: 0;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }

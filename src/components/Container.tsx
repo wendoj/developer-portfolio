@@ -86,7 +86,7 @@ export default function Container(props: any) {
          <link rel="apple-touch-icon" href="./icon-192x192.png" />
       </Head>
       <div className="flex flex-col">
-        <header className="fixed transition-all duration-300 py-8 backdrop-blur-lg top-0 inset-x-0 z-[100] px-[10vw] xl:px-[15vw] flex flex-row items-center justify-between">
+        <header className="fixed transition-all duration-300 py-6 lg:py-8 backdrop-blur-lg top-0 inset-x-0 z-[100] px-[10vw] xl:px-[15vw] flex flex-row items-center justify-between">
           <h2 className="font-semibold text-xl">wendo</h2>
 
           <nav className="flex flex-row items-center">
