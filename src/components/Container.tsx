@@ -5,7 +5,6 @@ import NextLink from "next/link";
 import MobileMenu from "./MobileMenu";
 import { motion } from "framer-motion";
 import Footer from "./Footer";
-import { Html } from "next/document";
 
 const variants = {
   visible: (i: number) => ({
@@ -59,7 +58,7 @@ export default function Container(props: any) {
   };
 
   return (
-    <Html lang="en">
+    <>
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
@@ -107,6 +106,6 @@ export default function Container(props: any) {
         </main>
         <Footer />
       </div>
-    </Html>
+    </>
   );
 }
