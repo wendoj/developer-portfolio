@@ -2,10 +2,10 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
-import cn from "classnames";
 import MobileMenu from "./MobileMenu";
 import { motion } from "framer-motion";
 import Footer from "./Footer";
+import { Html } from "next/document";
 
 const variants = {
   visible: (i: number) => ({
@@ -59,10 +59,11 @@ export default function Container(props: any) {
   };
 
   return (
-    <div>
+    <Html lang="en">
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
+        <meta name="theme-color" content="#78ffeb" />
         <meta content={meta.description} name="description" />
         <meta
           property="og:url"
@@ -82,6 +83,8 @@ export default function Container(props: any) {
         {meta.date && (
           <meta property="article:published_time" content={meta.date} />
         )}
+         <link rel="manifest" href="/manifest.json" />
+         <link rel="apple-touch-icon" href="./icon-192x192.png" />
       </Head>
       <div className="flex flex-col">
         <header className="fixed transition-all duration-300 py-8 backdrop-blur-lg top-0 inset-x-0 z-[100] px-[10vw] xl:px-[15vw] flex flex-row items-center justify-between">
@@ -104,6 +107,6 @@ export default function Container(props: any) {
         </main>
         <Footer />
       </div>
-    </div>
+    </Html>
   );
 }

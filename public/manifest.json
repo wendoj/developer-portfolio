@@ -2,6 +2,7 @@
     "theme_color": "#78ffeb",
     "background_color": "#0a0c10",
     "display": "browser",
+    "orientation": "portrait",
     "scope": "/",
     "start_url": "/",
     "name": "WendoJ",
@@ -11,22 +12,27 @@
         {
             "src": "/icon-192x192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "maskable any"
         },
         {
             "src": "/icon-256x256.png",
             "sizes": "256x256",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "maskable any"
         },
         {
             "src": "/icon-384x384.png",
             "sizes": "384x384",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "maskable any"
         },
         {
             "src": "/icon-512x512.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "maskable any"
         }
-    ]
+    ],
+    "splash_pages": null
 }
