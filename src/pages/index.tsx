@@ -5,7 +5,9 @@ import { Suspense } from "react";
 import { motion } from "framer-motion";
 import Project from "../components/Project";
 import VanillaTilt from "vanilla-tilt";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useLocomotiveScroll } from "react-locomotive-scroll";
+import Modal from "../components/Contact";
 
 /* Framer motion animation presets */
 const sentence = {
@@ -30,6 +32,13 @@ const letter = {
 const line1 = "WendoJ";
 
 const Home: NextPage = () => {
+  /* Modal state */
+  let [isOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
   /* Project card tilt hover effect */
   useEffect(() => {
     VanillaTilt.init(document.querySelectorAll("#project-card") as any, {
@@ -40,16 +49,25 @@ const Home: NextPage = () => {
     });
   }, []);
 
+  /* Smooth scrolling */
+  const { scroll } = useLocomotiveScroll();
   return (
-    <Container>
-      <section className="mt-[15rem] h-[100vh] flex flex-col lg:flex-row lg:mt-0 justify-between items-center">
-        <div className="flex flex-col -skew-y-6">
+    <Container data-scroll-container>
+      <Modal setIsOpen={setIsOpen} isOpen={isOpen} />
+      <section
+        data-scroll-section
+        className="mt-[15rem] h-[100vh] flex flex-col lg:flex-row lg:mt-0 lg:justify-between items-center"
+      >
+        <div className="flex flex-col -skew-y-6 text-center lg:text-justify">
           <p className="text-lg opacity-50">Hello! I&apos;m</p>
           <motion.h1
+            data-scroll
+            data-scroll-direction="horizontal"
+            data-scroll-speed="6"
             variants={sentence}
             initial="hidden"
             animate="visible"
-            className="text-6xl font-bold uppercase hover:-translate-y-1 transition-all duration-300 text-transparent bg-clip-text bg-gradient-to-r from-[#78ffeb] to-[#60ffd548]"
+            className="ml-3 text-6xl font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#78ffeb] to-[#60ffd548]"
           >
             {line1.split("").map((char, index) => {
               return (
@@ -65,7 +83,7 @@ const Home: NextPage = () => {
 
           {/* Call to action buttons */}
           <motion.div
-            className="mt-4 flex flex-row"
+            className="mt-4 flex flex-row justify-center lg:justify-start"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -73,20 +91,17 @@ const Home: NextPage = () => {
             <motion.button
               whileHover={{ scale: 1.025 }}
               whileTap={{ scale: 0.975 }}
+              className="relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-bold text-white shadow-2xl group"
+              onClick={openModal}
             >
-              <a
-                href="#contact"
-                className="relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-bold text-white shadow-2xl group"
-              >
-                <span className="absolute inset-0 w-full h-full transition duration-300 ease-out group-hover:opacity-80 bg-gradient-to-r from-[#32e7e440] to-transparent opacity-100" />
-                <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-[#32e7e47f] to-transparent opacity-[0.02] h-1/3" />
-                <span className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#32E7E3] to-transparent opacity-[0.02]" />
-                <span className="absolute bottom-0 left-0 w-4 h-full bg-gradient-to-r from-[#32E7E3] to-transparent opacity-[0.02]" />
-                <span className="absolute bottom-0 right-0 w-4 h-full bg-gradient-to-l from-[#32E7E3] to-transparent opacity-[0.02]" />
-                <span className="absolute inset-0 w-full h-full border border-[#32e7e47f] rounded-md opacity-10" />
-                <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-5" />
-                <span className="relative">Get in touch</span>
-              </a>
+              <span className="absolute inset-0 w-full h-full transition duration-300 ease-out group-hover:opacity-80 bg-gradient-to-r from-[#32e7e440] to-transparent opacity-100" />
+              <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-[#32e7e47f] to-transparent opacity-[0.02] h-1/3" />
+              <span className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#32E7E3] to-transparent opacity-[0.02]" />
+              <span className="absolute bottom-0 left-0 w-4 h-full bg-gradient-to-r from-[#32E7E3] to-transparent opacity-[0.02]" />
+              <span className="absolute bottom-0 right-0 w-4 h-full bg-gradient-to-l from-[#32E7E3] to-transparent opacity-[0.02]" />
+              <span className="absolute inset-0 w-full h-full border border-[#32e7e47f] rounded-md opacity-10" />
+              <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-5" />
+              <span className="relative">Get in touch</span>
             </motion.button>
 
             <a
@@ -119,8 +134,13 @@ const Home: NextPage = () => {
         </div>
       </section>
 
-      <section id="about">
-        <div className="mt-[5rem] flex flex-col">
+      <section data-scroll-section id="about">
+        <div
+          data-scroll
+          data-scroll-speed="-1"
+          data-scroll-direction="horizontal"
+          className="mt-[5rem] flex flex-col backdrop-blur-lg p-10"
+        >
           <h2 className="text-4xl font-semibold border-r mb-4">About Me</h2>
           <span className="flex flex-col gap-10">
             <p className="opacity-50">
@@ -128,7 +148,7 @@ const Home: NextPage = () => {
               and back-end website development, as well as a strong
               understanding of user experience and design principles. With a
               dedication for learning new things, I am passionate about building
-              beautiful and user-friendly websites that are also fast and
+              engaging and user-friendly websites that are also fast and
               responsive. <br /> <br />
               My interest in websites stemmed back to 2018 when I first decided
               to modify the CSS of a website to change its background image -
@@ -149,8 +169,13 @@ const Home: NextPage = () => {
         </div>
       </section>
 
-      <section id="projects">
-        <div className="mt-[15rem] flex flex-col">
+      <section data-scroll-section id="projects">
+        <div
+          data-scroll
+          data-scroll-speed="1"
+          data-scroll-direction="horizontal"
+          className="mt-[15rem] flex flex-col"
+        >
           <h2 className="text-4xl font-semibold border-r mb-4">Projects</h2>
 
           {/* Grid of past projcets */}
@@ -189,8 +214,12 @@ const Home: NextPage = () => {
         </div>
       </section>
 
-      <section id="contact">
-        <div className="mt-[15rem] flex justify-center flex-col gap-5 items-center">
+      <section data-scroll-section id="contact">
+        <div
+          data-scroll
+          data-scroll-speed="1"
+          className="mt-[15rem] flex justify-center flex-col gap-5 items-center"
+        >
           <h1 className="font-semibold text-4xl text-center">Contact Me</h1>
           <p className="opacity-50 mx-10 max-w-lg text-center">
             I am always open to new opportunities so feel free to reach out if
@@ -200,22 +229,19 @@ const Home: NextPage = () => {
           <motion.button
             whileHover={{ scale: 1.025 }}
             whileTap={{ scale: 0.975 }}
+            className="relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-bold text-white shadow-2xl group"
+            onClick={openModal}
           >
-            <a
-              href="mailto:wendoj@protonmail.com"
-              className="relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-bold text-white shadow-2xl group"
-            >
-              <span className="absolute inset-0 w-full h-full transition duration-300 ease-out group-hover:opacity-80 bg-gradient-to-r from-[#32e7e440] to-transparent opacity-100" />
-              <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-[#32e7e47f] to-transparent opacity-[0.02] h-1/3" />
-              <span className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#32E7E3] to-transparent opacity-[0.02]" />
-              <span className="absolute bottom-0 left-0 w-4 h-full bg-gradient-to-r from-[#32E7E3] to-transparent opacity-[0.02]" />
-              <span className="absolute bottom-0 right-0 w-4 h-full bg-gradient-to-l from-[#32E7E3] to-transparent opacity-[0.02]" />
-              <span className="absolute inset-0 w-full h-full border border-[#32e7e47f] rounded-md opacity-10" />
-              <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-5" />
-              <span className="relative">Say Hello</span>
-            </a>
+            <span className="absolute inset-0 w-full h-full transition duration-300 ease-out group-hover:opacity-80 bg-gradient-to-r from-[#32e7e440] to-transparent opacity-100" />
+            <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-[#32e7e47f] to-transparent opacity-[0.02] h-1/3" />
+            <span className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#32E7E3] to-transparent opacity-[0.02]" />
+            <span className="absolute bottom-0 left-0 w-4 h-full bg-gradient-to-r from-[#32E7E3] to-transparent opacity-[0.02]" />
+            <span className="absolute bottom-0 right-0 w-4 h-full bg-gradient-to-l from-[#32E7E3] to-transparent opacity-[0.02]" />
+            <span className="absolute inset-0 w-full h-full border border-[#32e7e47f] rounded-md opacity-10" />
+            <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-5" />
+            <span className="relative">Say Hello</span>
           </motion.button>
-          <div className="h-[50vh]">
+          <div className="w-[100vw] h-[50vh]">
             <Suspense fallback={<div>Loading...</div>}>
               <Spline
                 scene="https://prod.spline.design/v66eIFGDtN7TJzPC/scene.splinecode"
