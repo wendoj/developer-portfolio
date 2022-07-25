@@ -104,6 +104,7 @@ export default function Container(props: any) {
         <main className="mx-[10vw] xl:mx-[15vw] flex flex-col justify-center">
           {children}
         </main>
+        <Footer />
       </div>
     </>
   );

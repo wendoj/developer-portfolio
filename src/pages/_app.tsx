@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       containerRef={containerRef}
     >
       <div data-scroll-container ref={containerRef}>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </div>
     </RLSProvider>
   );
