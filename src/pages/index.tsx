@@ -63,7 +63,7 @@ const Home: NextPage = () => {
           <motion.h1
             data-scroll
             data-scroll-direction="horizontal"
-            data-scroll-speed="6"
+            data-scroll-speed="1"
             variants={sentence}
             initial="hidden"
             animate="visible"
@@ -77,7 +77,12 @@ const Home: NextPage = () => {
               );
             })}
           </motion.h1>
-          <h3 className="mt-1 opacity-80 text-3xl">
+          <h3
+            data-scroll
+            data-scroll-direction="horizontal"
+            data-scroll-speed="-1"
+            className="mt-1 opacity-80 text-2xl lg:text-[2.3vw] ultrawide:text-[1.6vw]"
+          >
             A <strong>full-stack</strong> website developer
           </h3>
 
@@ -162,7 +167,7 @@ const Home: NextPage = () => {
               <li>TailwindCSS</li>
               <li>PlanetScale</li>
               <li>Prisma</li>
-              <li>PostgreSQL</li>
+              <li>Go</li>
               <li>three.js</li>
             </ol>
           </span>

@@ -9,6 +9,7 @@
 
 html,
 body {
+  overflow-x: hidden;
   color-scheme: dark;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
