@@ -12,14 +12,23 @@
     "format": "prettier --write ./src/**/*.{ts,tsx,js,jsx,json,md}"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.0.2",
     "@t3-oss/env-nextjs": "^0.7.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "framer-motion": "^10.18.0",
+    "locomotive-scroll": "5.0.0-beta.11",
+    "lucide-react": "^0.314.0",
     "next": "^14.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/eslint": "^8.44.7",
+    "@types/locomotive-scroll": "^4.1.3",
     "@types/node": "^18.17.0",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",

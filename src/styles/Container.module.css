@@ -1,0 +1,7 @@
+/* navbar */
+.nav {
+    @apply fixed top-0 z-40 flex w-full flex-row items-center justify-between py-8 px-[1rem] 2xl:px-[17rem];
+}
+.nav ul {
+    @apply flex items-center space-x-5 text-center;
+}
