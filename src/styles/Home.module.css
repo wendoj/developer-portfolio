@@ -1,9 +1,12 @@
 .intro {
-    @apply flex flex-col items-start space-y-4;
+    @apply flex flex-col items-start space-y-4 w-full;
 }
 .intro .pill {
     @apply transition border border-input bg-background flex items-center text-xs px-2.5 py-1.5 rounded-full hover:-translate-y-1 hover:bg-primary hover:text-primary-foreground duration-300;
 }
 .intro h1 {
     @apply pt-2 leading-tight;
+}
+.scroll {
+    @apply absolute bottom-6 left-1/2 mb-8 hidden -translate-x-1/2 transform-gpu flex-col items-center text-sm text-slate-500 xl:flex tracking-tight;
 }

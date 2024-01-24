@@ -93,7 +93,9 @@ export default function Container(props: ContainerProps) {
       <nav
         className={cn(
           styles.nav,
-          isScrolled ? "bg-background shadow-md transition" : "bg-transparent",
+          isScrolled
+            ? "bg-gradient-to-br from-background to-transparent shadow-md backdrop-blur transition"
+            : "bg-transparent",
         )}
       >
         <Link href="/">
