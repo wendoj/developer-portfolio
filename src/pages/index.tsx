@@ -1,16 +1,19 @@
 import Container from "@/components/Container";
-import { useEffect, useRef, Suspense } from "react";
+import { useEffect, useRef, Suspense, useState } from "react";
 import styles from "@/styles/Home.module.css";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
-import { TriangleDownIcon } from "@radix-ui/react-icons";
+import { LightningBoltIcon, TriangleDownIcon } from "@radix-ui/react-icons";
 import Spline from "@splinetool/react-spline";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 const aboutStats = [
   { label: "Years of experience", value: "3+" },
-  { label: "Projects completed", value: "100+" },
-  { label: "Companies worked with", value: "10+" },
+  { label: "Technologies mastered", value: "5+" },
+  { label: "Companies worked with", value: "15+" },
 ];
 
 const projects = [
@@ -20,10 +23,7 @@ const projects = [
       "T3.gg is a free and open-source website builder for gamers. It allows you to create a website for your team or community in minutes, with no coding required.",
     image: "/assets/t3gg.png",
     tags: ["Next.js", "Tailwind", "TypeScript"],
-    links: [
-      { label: "Website", href: "https://t3.gg" },
-      { label: "GitHub", href: "https://github.com/t3-oss/create-t3-app" },
-    ],
+    href: "https://t3.gg",
   },
   {
     title: "T3.gg",
@@ -31,16 +31,24 @@ const projects = [
       "T3.gg is a free and open-source website builder for gamers. It allows you to create a website for your team or community in minutes, with no coding required.",
     image: "/assets/t3gg.png",
     tags: ["Next.js", "Tailwind", "TypeScript"],
-    links: [
-      { label: "Website", href: "https://t3.gg" },
-      { label: "GitHub", href: "https://github.com/t3-oss/create-t3-app" },
-    ],
+    href: "https://t3.gg",
+  },
+  {
+    isImageOnly: true,
+    title: "T3.gg",
+    description:
+      "T3.gg is a free and open-source website builder for gamers. It allows you to create a website for your team or community in minutes, with no coding required.",
+    image: "/assets/unqueue.webp",
+    tags: ["Next.js", "Tailwind", "TypeScript"],
+    href: "https://t3.gg",
   },
 ];
 
 export default function Home() {
   const refScrollContainer = useRef(null);
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
+  // handle locomotive scroll
   useEffect(() => {
     async function getLocomotive() {
       const Locomotive = (await import("locomotive-scroll")).default;
@@ -51,6 +59,19 @@ export default function Home() {
     }
 
     void getLocomotive();
+  }, []);
+
+  // handle scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
@@ -84,14 +105,17 @@ export default function Home() {
                   Hello, I&apos;m
                   <br />
                 </span>
-                <span className="clash-grotesk text-gradient text-6xl 2xl:text-8xl">
-                  WendoJ.
+                <span className="flex flex-row items-center">
+                  <span className="clash-grotesk text-gradient text-6xl 2xl:text-8xl">
+                    WendoJ
+                  </span>
+                  <LightningBoltIcon className="ml-2 h-8 w-8 animate-pulse" />
                 </span>
               </h1>
               <p
                 data-scroll
                 data-scroll-enable-touch-speed
-                data-scroll-speed=".04"
+                data-scroll-speed=".06"
                 className="mt-1 max-w-lg tracking-tight text-muted-foreground 2xl:text-xl"
               >
                 An experienced full-stack website developer with a passion for
@@ -101,8 +125,7 @@ export default function Home() {
             <span
               data-scroll
               data-scroll-enable-touch-speed
-              data-scroll-speed=".05"
-              data-direction="horizontal"
+              data-scroll-speed=".06"
               className="flex flex-row items-center space-x-1.5 pt-6"
             >
               <Button>
@@ -111,7 +134,12 @@ export default function Home() {
               <Button variant="outline">Learn more</Button>
             </span>
 
-            <div className={styles.scroll}>
+            <div
+              className={cn(
+                styles.scroll,
+                isScrolled && styles["scroll--hidden"],
+              )}
+            >
               Scroll to discover{" "}
               <TriangleDownIcon className="mt-1 animate-bounce" />
             </div>
@@ -145,7 +173,7 @@ export default function Home() {
             <div className="grid grid-cols-3">
               {aboutStats.map((stat) => (
                 <div key={stat.label} className="flex flex-col items-start">
-                  <span className="text-gradient text-6xl font-bold tracking-tight">
+                  <span className="clash-grotesk text-gradient text-6xl font-semibold tracking-tight">
                     {stat.value}
                   </span>
                   <span className="text-lg tracking-tight text-muted-foreground">
@@ -159,36 +187,81 @@ export default function Home() {
 
         {/* Projects */}
         <section data-scroll-section>
+          {/* Gradient */}
+          <div className="relative isolate -z-10">
+            <div
+              className="absolute inset-x-0 -top-40 transform-gpu overflow-hidden blur-[100px] sm:-top-80 lg:-top-60"
+              aria-hidden="true"
+            >
+              <div
+                className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary via-primary to-secondary opacity-10 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+                style={{
+                  clipPath:
+                    "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+                }}
+              />
+            </div>
+          </div>
           <div
             data-scroll
             data-scroll-speed=".4"
             data-scroll-position="bottom"
-            className="my-14 grid grid-cols-1 gap-10 py-16 md:grid-cols-2 lg:grid-cols-3"
+            className="my-14"
           >
-            {projects.map((project) => (
-              <div key={project.title} className="flex flex-col items-start">
-                <h3 className="text-3xl font-bold tracking-tight text-foreground">
-                  {project.title}
-                </h3>
-                <p className="text-lg text-muted-foreground">
-                  {project.description}
-                </p>
-                <div className="flex flex-row space-x-2">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="text-sm text-slate-400">{tag}</span>
-                  ))}
-                </div>
-                <div className="flex flex-row space-x-2">
-                  {project.links.map((link) => (
-                    <Link key={link.label} href={link.href}>
-                      <span className="text-sm text-slate-400">
-                        {link.label}
-                      </span>
+            <span className="text-gradient text-sm font-bold tracking-tighter">
+              ✨ Projects
+            </span>
+            <h2 className="clash-grotesk mt-3 text-6xl tracking-tight">
+              Streamlined digital experiences.
+            </h2>
+            <p className="mt-1.5 text-lg tracking-tight text-muted-foreground">
+              I&apos;ve worked on a variety of projects, from small websites to
+              large-scale web applications. Here are some of my favorites:
+            </p>
+
+            {/* Bento grid */}
+            <div className="mt-10 flex flex-row gap-1.5">
+              {projects.map((project) => (
+                <div key={project.title}>
+                  {project.isImageOnly ? (
+                    <Link href={project.href} passHref target="_blank">
+                      <div className="relative h-full w-full rounded-md">
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          layout="fill"
+                          className="object-contain"
+                          quality={100}
+                        />
+                      </div>
                     </Link>
-                  ))}
+                  ) : (
+                    <div className={styles["project-card"]}>
+                      <div className="flex flex-col items-start">
+                        <h3 className="clash-grotesk text-4xl font-semibold tracking-tight">
+                          {project.title}
+                        </h3>
+                        <p className="mt-1.5 text-lg tracking-tight text-muted-foreground">
+                          {project.description}
+                        </p>
+                      </div>
+                      <div className="mt-6 flex w-full flex-row items-center justify-between">
+                        <div className="flex flex-row items-center space-x-2">
+                          {project.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="rounded-md bg-primary px-2 py-1 text-sm font-medium tracking-tight text-white"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
       </div>
