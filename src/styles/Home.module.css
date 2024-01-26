@@ -22,3 +22,12 @@
 .project-card {
     @apply p-14 bg-white/[1%] rounded-md;
 }
+
+/* spline canvas */
+#canvas-container
+{
+    @apply bg-background border rounded-[30px] h-[515px] w-[690px] min-w-[690px] overflow-hidden;
+
+    /* this fixes the overflow:hidden in Chrome/Opera */
+    -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+}

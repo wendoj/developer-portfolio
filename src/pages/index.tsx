@@ -3,12 +3,21 @@ import { useEffect, useRef, Suspense, useState } from "react";
 import styles from "@/styles/Home.module.css";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
-import { LightningBoltIcon, TriangleDownIcon } from "@radix-ui/react-icons";
+import { TriangleDownIcon } from "@radix-ui/react-icons";
 import Spline from "@splinetool/react-spline";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 import Image from "next/image";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
+import VanillaTilt from "vanilla-tilt";
 
 const aboutStats = [
   { label: "Years of experience", value: "3+" },
@@ -18,37 +27,45 @@ const aboutStats = [
 
 const projects = [
   {
-    title: "T3.gg",
-    description:
-      "T3.gg is a free and open-source website builder for gamers. It allows you to create a website for your team or community in minutes, with no coding required.",
-    image: "/assets/t3gg.png",
-    tags: ["Next.js", "Tailwind", "TypeScript"],
-    href: "https://t3.gg",
-  },
-  {
-    title: "T3.gg",
-    description:
-      "T3.gg is a free and open-source website builder for gamers. It allows you to create a website for your team or community in minutes, with no coding required.",
-    image: "/assets/t3gg.png",
-    tags: ["Next.js", "Tailwind", "TypeScript"],
-    href: "https://t3.gg",
-  },
-  {
-    isImageOnly: true,
-    title: "T3.gg",
-    description:
-      "T3.gg is a free and open-source website builder for gamers. It allows you to create a website for your team or community in minutes, with no coding required.",
+    title: "Unqueue",
+    description: "E-commerce platform for selling digital products",
     image: "/assets/unqueue.webp",
-    tags: ["Next.js", "Tailwind", "TypeScript"],
-    href: "https://t3.gg",
+    href: "https://unqueue.app/",
+  },
+  {
+    title: "InfiniteVPS",
+    description: "High performance VPS hosting solution",
+    image: "/assets/infinitevps.gif",
+    href: "#",
+  },
+  {
+    title: "TranslateBot",
+    description: "Powerful Multilingual Translation Bot for Discord",
+    image: "/assets/translate_bot.gif",
+    href: "https://translatebot.app/",
+  },
+  {
+    title: "Wrona",
+    description: "Robotics-focused technology company",
+    image: "/assets/wrona.jpeg",
+    href: "https://www.wrona.com/",
+  },
+  {
+    title: "Delta",
+    description: "Premium script execution platform",
+    image: "/assets/delta.gif",
+    href: "https://deltaexploits.net/",
   },
 ];
 
 export default function Home() {
   const refScrollContainer = useRef(null);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
+  const [current, setCurrent] = useState<number>(0);
+  const [count, setCount] = useState<number>(0);
 
-  // handle locomotive scroll
+  // handle scroll
   useEffect(() => {
     async function getLocomotive() {
       const Locomotive = (await import("locomotive-scroll")).default;
@@ -58,20 +75,41 @@ export default function Home() {
       });
     }
 
-    void getLocomotive();
-  }, []);
-
-  // handle scroll
-  useEffect(() => {
-    const handleScroll = () => {
+    function handleScroll() {
       setIsScrolled(window.scrollY > 0);
-    };
+    }
 
     window.addEventListener("scroll", handleScroll);
 
+    void getLocomotive();
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+  }, []);
+
+  // carousel
+  useEffect(() => {
+    if (!carouselApi) return;
+
+    setCount(carouselApi.scrollSnapList().length);
+    setCurrent(carouselApi.selectedScrollSnap() + 1);
+
+    carouselApi.on("select", () => {
+      setCurrent(carouselApi.selectedScrollSnap() + 1);
+    });
+  }, [carouselApi]);
+
+  // card hover effect
+  useEffect(() => {
+    const tilt: HTMLElement[] = Array.from(document.querySelectorAll("#tilt"));
+    VanillaTilt.init(tilt, {
+      speed: 300,
+      glare: true,
+      "max-glare": 0.1,
+      gyroscope: true,
+      perspective: 900,
+      scale: 0.9,
+    });
   }, []);
 
   return (
@@ -105,11 +143,8 @@ export default function Home() {
                   Hello, I&apos;m
                   <br />
                 </span>
-                <span className="flex flex-row items-center">
-                  <span className="clash-grotesk text-gradient text-6xl 2xl:text-8xl">
-                    WendoJ
-                  </span>
-                  <LightningBoltIcon className="ml-2 h-8 w-8 animate-pulse" />
+                <span className="clash-grotesk text-gradient text-6xl 2xl:text-8xl">
+                  WendoJ.
                 </span>
               </h1>
               <p
@@ -144,9 +179,14 @@ export default function Home() {
               <TriangleDownIcon className="mt-1 animate-bounce" />
             </div>
           </div>
-          <div className="flex h-[30vh] w-full md:w-1/2 lg:h-[50vh]">
+          <div
+            data-scroll
+            data-scroll-speed="-.01"
+            id={styles["canvas-container"]}
+            className="h-full w-full"
+          >
             <Suspense fallback={<span>Loading...</span>}>
-              <Spline scene="/assets/scene.splinecode" />
+              <Spline scene="https://prod.spline.design/kwRoCypDXuzXlxKJ/scene.splinecode" />
             </Suspense>
           </div>
         </section>
@@ -202,16 +242,11 @@ export default function Home() {
               />
             </div>
           </div>
-          <div
-            data-scroll
-            data-scroll-speed=".4"
-            data-scroll-position="bottom"
-            className="my-14"
-          >
-            <span className="text-gradient text-sm font-bold tracking-tighter">
+          <div data-scroll data-scroll-speed=".4" className="my-14">
+            <span className="text-gradient clash-grotesk text-sm font-semibold tracking-tighter">
               ✨ Projects
             </span>
-            <h2 className="clash-grotesk mt-3 text-6xl tracking-tight">
+            <h2 className="mt-3 text-6xl font-semibold tracking-tight tracking-tighter">
               Streamlined digital experiences.
             </h2>
             <p className="mt-1.5 text-lg tracking-tight text-muted-foreground">
@@ -219,49 +254,66 @@ export default function Home() {
               large-scale web applications. Here are some of my favorites:
             </p>
 
-            {/* Bento grid */}
-            <div className="mt-10 flex flex-row gap-1.5">
-              {projects.map((project) => (
-                <div key={project.title}>
-                  {project.isImageOnly ? (
-                    <Link href={project.href} passHref target="_blank">
-                      <div className="relative h-full w-full rounded-md">
-                        <Image
-                          src={project.image}
-                          alt={project.title}
-                          layout="fill"
-                          className="object-contain"
-                          quality={100}
-                        />
-                      </div>
-                    </Link>
-                  ) : (
-                    <div className={styles["project-card"]}>
-                      <div className="flex flex-col items-start">
-                        <h3 className="clash-grotesk text-4xl font-semibold tracking-tight">
-                          {project.title}
-                        </h3>
-                        <p className="mt-1.5 text-lg tracking-tight text-muted-foreground">
-                          {project.description}
-                        </p>
-                      </div>
-                      <div className="mt-6 flex w-full flex-row items-center justify-between">
-                        <div className="flex flex-row items-center space-x-2">
-                          {project.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="rounded-md bg-primary px-2 py-1 text-sm font-medium tracking-tight text-white"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
+            {/* Carousel */}
+            <div className="relative mt-14">
+              <Carousel setApi={setCarouselApi} className="w-full">
+                <CarouselContent>
+                  {projects.map((project) => (
+                    <CarouselItem key={project.title} className="md:basis-1/2">
+                      <Card id="tilt">
+                        <CardHeader className="p-0">
+                          <Link href={project.href} target="_blank" passHref>
+                            <Image
+                              src={project.image}
+                              alt={project.title}
+                              width={600}
+                              height={300}
+                              quality={100}
+                              className="aspect-video h-full w-full rounded-t-md bg-primary object-cover"
+                            />
+                          </Link>
+                        </CardHeader>
+                        <CardContent className="absolute bottom-0 w-full bg-white/[1%] backdrop-blur">
+                          <CardTitle className="border-t border-white/5 p-4 text-base font-normal tracking-tighter">
+                            {project.description}
+                          </CardTitle>
+                        </CardContent>
+                      </Card>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+              <div className="py-2 text-center text-sm text-muted-foreground">
+                <span className="font-semibold">
+                  {current} / {count}
+                </span>{" "}
+                projects
+              </div>
             </div>
+          </div>
+        </section>
+
+        {/* Contact */}
+        <section data-scroll-section>
+          <div
+            data-scroll
+            data-scroll-speed=".4"
+            data-scroll-position="top"
+            className="mb-64 flex flex-col items-center justify-center rounded-lg bg-gradient-to-br from-primary/[6.5%] to-white/5 p-24 text-center"
+          >
+            <h2 className="text-6xl font-medium tracking-tighter">
+              Let&apos;s work{" "}
+              <span className="text-gradient clash-grotesk">together.</span>
+            </h2>
+            <p className="mt-1.5 text-lg tracking-tight text-muted-foreground">
+              I&apos;m currently available for freelance work and open to
+              discussing new projects.
+            </p>
+            <Link href="mailto:wendoj@proton.me" passHref>
+              <Button className="mt-6">Get in touch</Button>
+            </Link>
           </div>
         </section>
       </div>

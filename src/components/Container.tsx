@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import styles from "@/styles/Container.module.css";
+import Footer from "@/components/Footer";
 
 type ContainerProps = {
   children: React.ReactNode;
@@ -114,6 +115,7 @@ export default function Container(props: ContainerProps) {
         </ul>
       </nav>
       <main className={cn("container", props.className)}>{props.children}</main>
+      <Footer />
     </>
   );
 }
