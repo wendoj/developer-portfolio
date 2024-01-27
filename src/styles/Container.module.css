@@ -2,6 +2,27 @@
 .nav {
     @apply fixed top-0 z-40 flex w-full flex-row items-center justify-between py-8 px-[1rem] 2xl:px-[17rem];
 }
-.nav ul {
-    @apply flex items-center space-x-5 text-center;
+.nav .desktop-nav {
+    @apply sm:flex items-center space-x-5 text-center hidden;
+}
+
+/* burger menu */
+.burger {
+    transition: opacity 300ms ease;
+    border: 0;
+    background: transparent;
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+.burger svg {
+    transform: translate(-80%, -38%) scale(1);
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    transition: opacity 300ms ease, transform 300ms ease;
+}
+.burger svg[data-hide="true"] {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
 }

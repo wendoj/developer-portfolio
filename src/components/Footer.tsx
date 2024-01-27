@@ -37,8 +37,8 @@ export default function Footer() {
               wendoj
             </Link>
           </p>
-          <hr className="h-6 border-l border-muted" />
-          <span className="flex flex-row items-center space-x-2">
+          <hr className="hidden h-6 border-l border-muted md:flex" />
+          <span className="flex hidden flex-row items-center space-x-2 md:flex">
             <p className="text-xs text-muted-foreground">Local time:</p>
             <p className="text-sm font-semibold">{time} UTC+1</p>
           </span>
@@ -49,8 +49,8 @@ export default function Footer() {
           className="text-xs text-muted-foreground hover:text-foreground"
         >
           <Button variant={"outline"}>
-            <MailIcon className="mr-2 h-4 w-4" />
-            wendoj@proton.me
+            <MailIcon className="h-4 w-4 md:mr-2" />
+            <span className="hidden md:flex">wendoj@proton.me</span>
           </Button>
         </Link>
       </div>

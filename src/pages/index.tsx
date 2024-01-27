@@ -2,7 +2,14 @@ import Container from "@/components/Container";
 import { useEffect, useRef, Suspense, useState } from "react";
 import styles from "@/styles/Home.module.css";
 import { Button } from "@/components/ui/button";
-import { ChevronRight } from "lucide-react";
+import {
+  ChevronRight,
+  Code2,
+  Frame,
+  SearchCheck,
+  Eye,
+  MonitorSmartphone,
+} from "lucide-react";
 import { TriangleDownIcon } from "@radix-ui/react-icons";
 import Spline from "@splinetool/react-spline";
 import Link from "next/link";
@@ -18,6 +25,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import VanillaTilt from "vanilla-tilt";
+import { motion } from "framer-motion";
 
 const aboutStats = [
   { label: "Years of experience", value: "3+" },
@@ -29,8 +37,8 @@ const projects = [
   {
     title: "Unqueue",
     description: "E-commerce platform for selling digital products",
-    image: "/assets/unqueue.webp",
-    href: "https://unqueue.app/",
+    image: "/assets/unqueue.gif",
+    href: "https://unqueue.shop/",
   },
   {
     title: "InfiniteVPS",
@@ -58,6 +66,39 @@ const projects = [
   },
 ];
 
+const services = [
+  {
+    service: "Frontend Development",
+    description:
+      "Creating stellar user interfaces and web experiences using the latest technologies.",
+    icon: Code2,
+  },
+  {
+    service: "UX Design",
+    description:
+      "Building intuitive, user-centric designs that drive engagement and conversion.",
+    icon: Frame,
+  },
+  {
+    service: "SEO Optimization",
+    description:
+      "Enhancing your website's visibility in search engines for increased organic traffic.",
+    icon: SearchCheck,
+  },
+  {
+    service: "Responsive Design",
+    description:
+      "Designing websites that look and perform equally well on all devices and screen sizes.",
+    icon: MonitorSmartphone,
+  },
+  {
+    service: "Backend Development",
+    description:
+      "Developing robust, scalable server-side logic for a wide range of web applications.",
+    icon: Eye,
+  },
+];
+
 export default function Home() {
   const refScrollContainer = useRef(null);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -69,7 +110,7 @@ export default function Home() {
   useEffect(() => {
     async function getLocomotive() {
       const Locomotive = (await import("locomotive-scroll")).default;
-      const scroll = new Locomotive({
+      new Locomotive({
         el: refScrollContainer.current ?? new HTMLElement(),
         smooth: true,
       });
@@ -79,9 +120,9 @@ export default function Home() {
       setIsScrolled(window.scrollY > 0);
     }
 
+    void getLocomotive();
     window.addEventListener("scroll", handleScroll);
 
-    void getLocomotive();
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -116,10 +157,11 @@ export default function Home() {
     <Container>
       <div ref={refScrollContainer}>
         <Gradient />
+
         {/* Intro */}
         <section
           data-scroll-section
-          className="flex min-h-screen w-full flex-row items-center justify-between"
+          className="mt-40 flex w-full flex-col items-center xl:mt-0 xl:min-h-screen xl:flex-row xl:justify-between"
         >
           <div className={styles.intro}>
             <div
@@ -183,7 +225,7 @@ export default function Home() {
             data-scroll
             data-scroll-speed="-.01"
             id={styles["canvas-container"]}
-            className="h-full w-full"
+            className="mt-14 h-full w-full xl:mt-0"
           >
             <Suspense fallback={<span>Loading...</span>}>
               <Spline scene="https://prod.spline.design/kwRoCypDXuzXlxKJ/scene.splinecode" />
@@ -199,9 +241,13 @@ export default function Home() {
             data-scroll-position="top"
             className="my-14 flex max-w-6xl flex-col justify-start space-y-10"
           >
-            <h2 className="py-16 text-[40px] font-light leading-normal tracking-tighter text-foreground">
+            <h2 className="py-16  pb-2 text-3xl font-light leading-normal tracking-tighter text-foreground xl:text-[40px]">
               I&apos;m an experienced full-stack developer proficient in{" "}
-              <Link href="https://create.t3.gg/" target="_blank">
+              <Link
+                href="https://create.t3.gg/"
+                target="_blank"
+                className="underline"
+              >
                 TypeScript, Tailwind, and Next.js
               </Link>{" "}
               since 2021. My experience spans from startups to mid-sized
@@ -210,13 +256,16 @@ export default function Home() {
               prototyping, to the delivery of the final product, all while
               efficiently collaborating with cross-functional teams.
             </h2>
-            <div className="grid grid-cols-3">
+            <div className="grid grid-cols-2 gap-8 xl:grid-cols-3">
               {aboutStats.map((stat) => (
-                <div key={stat.label} className="flex flex-col items-start">
-                  <span className="clash-grotesk text-gradient text-6xl font-semibold tracking-tight">
+                <div
+                  key={stat.label}
+                  className="flex flex-col items-center text-center xl:items-start xl:text-start"
+                >
+                  <span className="clash-grotesk text-gradient text-4xl font-semibold tracking-tight xl:text-6xl">
                     {stat.value}
                   </span>
-                  <span className="text-lg tracking-tight text-muted-foreground">
+                  <span className="tracking-tight text-muted-foreground xl:text-lg">
                     {stat.label}
                   </span>
                 </div>
@@ -242,20 +291,20 @@ export default function Home() {
               />
             </div>
           </div>
-          <div data-scroll data-scroll-speed=".4" className="my-14">
+          <div data-scroll data-scroll-speed=".4" className="my-64">
             <span className="text-gradient clash-grotesk text-sm font-semibold tracking-tighter">
               ✨ Projects
             </span>
-            <h2 className="mt-3 text-6xl font-semibold tracking-tight tracking-tighter">
+            <h2 className="mt-3 text-4xl font-semibold tracking-tight tracking-tighter xl:text-6xl">
               Streamlined digital experiences.
             </h2>
-            <p className="mt-1.5 text-lg tracking-tight text-muted-foreground">
+            <p className="mt-1.5 text-base tracking-tight text-muted-foreground xl:text-lg">
               I&apos;ve worked on a variety of projects, from small websites to
               large-scale web applications. Here are some of my favorites:
             </p>
 
             {/* Carousel */}
-            <div className="relative mt-14">
+            <div className="mt-14">
               <Carousel setApi={setCarouselApi} className="w-full">
                 <CarouselContent>
                   {projects.map((project) => (
@@ -273,7 +322,7 @@ export default function Home() {
                             />
                           </Link>
                         </CardHeader>
-                        <CardContent className="absolute bottom-0 w-full bg-white/[1%] backdrop-blur">
+                        <CardContent className="absolute bottom-0 w-full bg-background/50 backdrop-blur">
                           <CardTitle className="border-t border-white/5 p-4 text-base font-normal tracking-tighter">
                             {project.description}
                           </CardTitle>
@@ -295,19 +344,69 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Services */}
+        <section data-scroll-section>
+          <div
+            data-scroll
+            data-scroll-speed=".4"
+            data-scroll-position="top"
+            className="my-24 flex flex-col justify-start space-y-10"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 1,
+                ease: "easeInOut",
+                staggerChildren: 0.5,
+              }}
+              viewport={{ once: true }}
+              className="grid items-center gap-1.5 md:grid-cols-2 xl:grid-cols-3"
+            >
+              <div className="flex flex-col py-6 xl:p-6">
+                <h2 className="text-4xl font-medium tracking-tight">
+                  Need more info?
+                  <br />
+                  <span className="text-gradient clash-grotesk tracking-normal">
+                    I got you.
+                  </span>
+                </h2>
+                <p className="mt-2 tracking-tighter text-secondary-foreground">
+                  Here are some of the services I offer. If you have any
+                  questions, feel free to reach out.
+                </p>
+              </div>
+              {services.map((service) => (
+                <div
+                  key={service.service}
+                  className="flex flex-col items-start rounded-md bg-white/5 p-14 shadow-md backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-md"
+                >
+                  <service.icon className="my-6 text-primary" size={20} />
+                  <span className="text-lg tracking-tight text-foreground">
+                    {service.service}
+                  </span>
+                  <span className="mt-2 tracking-tighter text-muted-foreground">
+                    {service.description}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
         {/* Contact */}
         <section data-scroll-section>
           <div
             data-scroll
             data-scroll-speed=".4"
             data-scroll-position="top"
-            className="mb-64 flex flex-col items-center justify-center rounded-lg bg-gradient-to-br from-primary/[6.5%] to-white/5 p-24 text-center"
+            className="my-64 flex flex-col items-center justify-center rounded-lg bg-gradient-to-br from-primary/[6.5%] to-white/5 px-8 py-16 text-center xl:py-24"
           >
-            <h2 className="text-6xl font-medium tracking-tighter">
+            <h2 className="text-4xl font-medium tracking-tighter xl:text-6xl">
               Let&apos;s work{" "}
               <span className="text-gradient clash-grotesk">together.</span>
             </h2>
-            <p className="mt-1.5 text-lg tracking-tight text-muted-foreground">
+            <p className="mt-1.5 text-base tracking-tight text-muted-foreground xl:text-lg">
               I&apos;m currently available for freelance work and open to
               discussing new projects.
             </p>
