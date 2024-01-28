@@ -225,16 +225,14 @@ export default function Home() {
               data-scroll-speed=".06"
               className="flex flex-row items-center space-x-1.5 pt-6"
             >
-              <Button>
-                Get in touch <ChevronRight className="ml-1 h-4 w-4" />
-              </Button>
+              <Link href="mailto:wendoj@proton.me" passHref>
+                <Button>
+                  Get in touch <ChevronRight className="ml-1 h-4 w-4" />
+                </Button>
+              </Link>
               <Button
                 variant="outline"
-                onClick={() =>
-                  scrollTo(
-                    document.querySelector("#about") ?? new HTMLElement(),
-                  )
-                }
+                onClick={() => scrollTo(document.querySelector("#about"))}
               >
                 Learn more
               </Button>
