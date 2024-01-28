@@ -57,6 +57,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  section {
+    scroll-margin-top: 60px;
+  }
 }
 
 /* custom scrollbar */
@@ -83,6 +86,14 @@
   .text-gradient {
     @apply bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent;
   }
+  .nav-active {
+    color: rgb(226 232 240) !important;
+    @apply text-sm lowercase tracking-tight text-slate-200;
+  }
+  .nav-link {
+    /* Remove the styles from nav-link class */
+    @apply text-sm lowercase tracking-tight text-slate-400;
+  }
 
   /* blinking animation */
   @keyframes blink {
@@ -94,6 +105,6 @@
     }
   }
   .animate-blink {
-    animation: blink 1s infinite ease-in-out;
+    animation: blink 1s infinite;
   }
 }

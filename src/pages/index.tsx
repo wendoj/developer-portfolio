@@ -13,7 +13,7 @@ import {
 import { TriangleDownIcon } from "@radix-ui/react-icons";
 import Spline from "@splinetool/react-spline";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn, scrollTo } from "@/lib/utils";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -108,6 +108,9 @@ export default function Home() {
 
   // handle scroll
   useEffect(() => {
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("#nav-link");
+
     async function getLocomotive() {
       const Locomotive = (await import("locomotive-scroll")).default;
       new Locomotive({
@@ -117,7 +120,24 @@ export default function Home() {
     }
 
     function handleScroll() {
+      let current = "";
       setIsScrolled(window.scrollY > 0);
+
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        if (window.scrollY >= sectionTop - 250) {
+          current = section.getAttribute("id") ?? "";
+        }
+      });
+
+      navLinks.forEach((li) => {
+        li.classList.remove("nav-active");
+
+        if (li.getAttribute("href") === `#${current}`) {
+          li.classList.add("nav-active");
+          console.log(li.getAttribute("href"));
+        }
+      });
     }
 
     void getLocomotive();
@@ -128,7 +148,6 @@ export default function Home() {
     };
   }, []);
 
-  // carousel
   useEffect(() => {
     if (!carouselApi) return;
 
@@ -160,6 +179,7 @@ export default function Home() {
 
         {/* Intro */}
         <section
+          id="home"
           data-scroll-section
           className="mt-40 flex w-full flex-col items-center xl:mt-0 xl:min-h-screen xl:flex-row xl:justify-between"
         >
@@ -208,7 +228,16 @@ export default function Home() {
               <Button>
                 Get in touch <ChevronRight className="ml-1 h-4 w-4" />
               </Button>
-              <Button variant="outline">Learn more</Button>
+              <Button
+                variant="outline"
+                onClick={() =>
+                  scrollTo(
+                    document.querySelector("#about") ?? new HTMLElement(),
+                  )
+                }
+              >
+                Learn more
+              </Button>
             </span>
 
             <div
@@ -228,13 +257,13 @@ export default function Home() {
             className="mt-14 h-full w-full xl:mt-0"
           >
             <Suspense fallback={<span>Loading...</span>}>
-              <Spline scene="https://prod.spline.design/kwRoCypDXuzXlxKJ/scene.splinecode" />
+              <Spline scene="/assets/scene.splinecode" />
             </Suspense>
           </div>
         </section>
 
         {/* About */}
-        <section data-scroll-section>
+        <section id="about" data-scroll-section>
           <div
             data-scroll
             data-scroll-speed=".4"
@@ -275,7 +304,7 @@ export default function Home() {
         </section>
 
         {/* Projects */}
-        <section data-scroll-section>
+        <section id="projects" data-scroll-section>
           {/* Gradient */}
           <div className="relative isolate -z-10">
             <div
@@ -345,7 +374,7 @@ export default function Home() {
         </section>
 
         {/* Services */}
-        <section data-scroll-section>
+        <section id="services" data-scroll-section>
           <div
             data-scroll
             data-scroll-speed=".4"
@@ -357,7 +386,6 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{
                 duration: 1,
-                ease: "easeInOut",
                 staggerChildren: 0.5,
               }}
               viewport={{ once: true }}
@@ -395,12 +423,12 @@ export default function Home() {
         </section>
 
         {/* Contact */}
-        <section data-scroll-section>
+        <section id="contact" data-scroll-section className="my-64">
           <div
             data-scroll
             data-scroll-speed=".4"
             data-scroll-position="top"
-            className="my-64 flex flex-col items-center justify-center rounded-lg bg-gradient-to-br from-primary/[6.5%] to-white/5 px-8 py-16 text-center xl:py-24"
+            className="flex flex-col items-center justify-center rounded-lg bg-gradient-to-br from-primary/[6.5%] to-white/5 px-8 py-16 text-center xl:py-24"
           >
             <h2 className="text-4xl font-medium tracking-tighter xl:text-6xl">
               Let&apos;s work{" "}

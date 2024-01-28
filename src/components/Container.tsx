@@ -1,8 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { cn, scrollTo } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import styles from "@/styles/Container.module.css";
 import Footer from "@/components/Footer";
@@ -32,21 +31,28 @@ const variants = {
     transition: {
       delay: i * 0.12,
     },
-    ease: "easeInOut",
   }),
   hidden: { opacity: 0 },
 };
 
 const navLinks = [
-  { href: "/", text: "Home" },
-  { href: "/#about", text: "About" },
-  { href: "/#projects", text: "Projects" },
-  { href: "/#contact", text: "Contact" },
+  { href: "#home", text: "Home" },
+  { href: "#about", text: "About" },
+  { href: "#projects", text: "Projects" },
+  { href: "#services", text: "Services" },
 ];
 
-function NavItem(props: NavProps) {
-  const isActive = usePathname() === props.href;
+function handleClick(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+  const href = e.currentTarget.getAttribute("href");
 
+  if (href && href.startsWith("#")) {
+    e.preventDefault();
+    const section = document.querySelector(href);
+    scrollTo(section);
+  }
+}
+
+function NavItem(props: NavProps) {
   return (
     <motion.li
       className={props.className}
@@ -56,15 +62,14 @@ function NavItem(props: NavProps) {
       animate="visible"
       exit="hidden"
     >
-      <Link
+      <a
+        id="nav-link"
         href={props.href}
-        className={cn(
-          "text-sm lowercase tracking-tight text-slate-400 transition hover:text-slate-200",
-          isActive && "text-slate-200",
-        )}
+        onClick={handleClick}
+        className={cn(props.i === 0 && "nav-active", "nav-link")}
       >
-        <span>{props.text}</span>
-      </Link>
+        {props.text}
+      </a>
     </motion.li>
   );
 }
