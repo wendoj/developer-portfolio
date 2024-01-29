@@ -1,27 +1,54 @@
-# Create T3 App
+# 🖥️ Personal Portfolio
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+A sleek, modern, and responsive portfolio bootstrapped with [create-t3-app](https://create.t3.gg/).
 
-## What's next? How do I make an app with this?
+<video alt="Preview" src="https://www.wendoj.codes/assets/portfolio.webm"></video>
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+[🔗 Link to portfolio](https://www.wendoj.codes)
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+All you need to know about me, my projects and skills can be found here. Personalize the portfolio by modifying `src/pages/index.tsx` and `src/styles/globals.css` to emulate your own portfolio. Made some improvements and want to share? Open a pull request.
+For any issues, feel free to report them here.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## 🎉 Features
+- **Responsive Design**: The portfolio is designed to be fully responsive, providing an optimal viewing experience across a wide range of devices from desktops to mobile phones.
+- **Easy Customization**: The portfolio structure is straightforward and well organized, making it easy to customize and showcase your unique set of skills and projects.
+- **Stunning UI/UX Design**: The portfolio boasts a sleek and modern design, using smooth animations to capture the attention of potential employers or clients.
+- **Interactive UI**: Utilizing modern web development techniques, the portfolio offers an interactive user interface that enhances user experience, such as `locomotive-scroll` and `framer-motion`.
 
-## Learn More
+## 🚀 Getting Started
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+### Prerequisites
+To get started with this portfolio, ensure that you have the following installed on your system:
+- Node.js
+- npm
+- git
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## 🛠️ Installation
+Follow the steps below to clone and run this project on your local system:
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+```bash
+# Clone the repository
+$ git clone https://github.com/your-username/portfolio.git
+
+# Navigate to the project directory
+$ cd portfolio
+
+# Remove current origin repository
+$ git remote remove origin
+```
+
+<br />
+
+Then install the required dependencies:
+```bash
+# Install dependencies
+$ npm install
+
+# Start the development server:
+$ npm run dev
+```
+Now, open your browser and navigate to `http://localhost:3000` to view your portfolio live.
+
 
 ## How do I deploy this?
 
