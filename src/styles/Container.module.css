@@ -1,28 +1,21 @@
 /* navbar */
 .nav {
-    @apply fixed top-0 z-40 flex w-full flex-row items-center justify-between py-8 px-[1rem] 2xl:px-[17rem];
+  @apply fixed top-0 z-40 flex w-full flex-row items-center justify-between px-[1rem] py-8 2xl:px-[17rem];
 }
 .nav .desktop-nav {
-    @apply sm:flex items-center space-x-5 text-center hidden;
+  @apply hidden items-center space-x-5 text-center sm:flex;
 }
 
 /* burger menu */
+.burger-button {
+  @apply inline-flex transform items-center justify-center rounded-md p-2 transition-all duration-300 focus:outline-none;
+}
 .burger {
-    transition: opacity 300ms ease;
-    border: 0;
-    background: transparent;
-    width: 40px;
-    height: 40px;
-    position: relative;
+  @apply relative h-40 w-40 border-0 bg-transparent transition-opacity duration-300;
 }
 .burger svg {
-    transform: translate(-80%, -38%) scale(1);
-    top: 50%;
-    left: 50%;
-    opacity: 1;
-    transition: opacity 300ms ease, transform 300ms ease;
+  @apply top-1/2 left-1/2 translate-x-[200%] -translate-y-[38%] scale-100 transform opacity-100 transition-opacity transition-transform duration-300 duration-300;
 }
 .burger svg[data-hide="true"] {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0);
+  @apply -translate-x-[50%] -translate-y-[50%] scale-0 transform opacity-0;
 }

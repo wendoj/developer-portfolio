@@ -37,19 +37,19 @@ const projects = [
   {
     title: "Unqueue",
     description: "E-commerce platform for selling digital products",
-    image: "/assets/unqueue.gif",
+    image: "/assets/unqueue.webm",
     href: "https://unqueue.shop/",
   },
   {
     title: "InfiniteVPS",
     description: "High performance VPS hosting solution",
-    image: "/assets/infinitevps.gif",
+    image: "/assets/infinitevps.webm",
     href: "#",
   },
   {
     title: "TranslateBot",
     description: "Powerful Multilingual Translation Bot for Discord",
-    image: "/assets/translate_bot.gif",
+    image: "/assets/translate_bot.webm",
     href: "https://translatebot.app/",
   },
   {
@@ -59,10 +59,10 @@ const projects = [
     href: "https://www.wrona.com/",
   },
   {
-    title: "Delta",
-    description: "Premium script execution platform",
-    image: "/assets/delta.gif",
-    href: "https://deltaexploits.net/",
+    title: "This website",
+    description: "My personal website",
+    image: "/assets/portfolio.webm",
+    href: "https://github.com/wendoj/portfolio",
   },
 ];
 
@@ -109,7 +109,7 @@ export default function Home() {
   // handle scroll
   useEffect(() => {
     const sections = document.querySelectorAll("section");
-    const navLinks = document.querySelectorAll("#nav-link");
+    const navLinks = document.querySelectorAll(".nav-link");
 
     async function getLocomotive() {
       const Locomotive = (await import("locomotive-scroll")).default;
@@ -339,14 +339,24 @@ export default function Home() {
                       <Card id="tilt">
                         <CardHeader className="p-0">
                           <Link href={project.href} target="_blank" passHref>
-                            <Image
-                              src={project.image}
-                              alt={project.title}
-                              width={600}
-                              height={300}
-                              quality={100}
-                              className="aspect-video h-full w-full rounded-t-md bg-primary object-cover"
-                            />
+                            {project.image.endsWith(".webm") ? (
+                              <video
+                                src={project.image}
+                                autoPlay
+                                loop
+                                muted
+                                className="aspect-video h-full w-full rounded-t-md bg-primary object-cover"
+                              />
+                            ) : (
+                              <Image
+                                src={project.image}
+                                alt={project.title}
+                                width={600}
+                                height={300}
+                                quality={100}
+                                className="aspect-video h-full w-full rounded-t-md bg-primary object-cover"
+                              />
+                            )}
                           </Link>
                         </CardHeader>
                         <CardContent className="absolute bottom-0 w-full bg-background/50 backdrop-blur">

@@ -3,9 +3,21 @@
  * for Docker builds.
  */
 await import("./src/env.js");
+import WithPWA from "next-pwa";
 
-/** @type {import("next").NextConfig} */
-const config = {
+const withPWA = WithPWA({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+  register: true,
+  scope: "/",
+  sw: "service-worker.js",
+});
+
+/**
+ * @type {import('next').NextConfig}
+ */
+// @ts-ignore
+const config = withPWA({
   reactStrictMode: true,
 
   /**
@@ -17,6 +29,6 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
-};
+});
 
 export default config;

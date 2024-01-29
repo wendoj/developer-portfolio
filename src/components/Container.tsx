@@ -5,6 +5,7 @@ import { cn, scrollTo } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import styles from "@/styles/Container.module.css";
 import Footer from "@/components/Footer";
+import { useRouter } from "next/router";
 
 type IconProps = {
   ["data-hide"]: boolean;
@@ -22,7 +23,6 @@ type NavProps = {
   href: string;
   i: number;
   className?: string;
-  setIsOpen?: (isOpen: boolean) => void;
 };
 
 const variants = {
@@ -63,7 +63,6 @@ function NavItem(props: NavProps) {
       exit="hidden"
     >
       <a
-        id="nav-link"
         href={props.href}
         onClick={handleClick}
         className={cn(props.i === 0 && "nav-active", "nav-link")}
@@ -77,6 +76,16 @@ function NavItem(props: NavProps) {
 export default function Container(props: ContainerProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
+
+  const { children, ...customMeta } = props;
+  const router = useRouter();
+  const meta = {
+    title: "Wendo",
+    description: `Full-stack website developer and TypeScript enthusiast.`,
+    image: "/assets/logo.webp",
+    type: "website",
+    ...customMeta,
+  };
 
   // handle scroll
   useEffect(() => {
@@ -94,11 +103,30 @@ export default function Container(props: ContainerProps) {
   return (
     <>
       <Head>
-        <title>{props.title ?? "wendo"}</title>
+        <title>{meta.title}</title>
+        <meta name="robots" content="follow, index" />
+        <meta name="theme-color" content="#7B82FE" />
+        <meta content={meta.description} name="description" />
         <meta
-          name="description"
-          content={props.description ?? "The personal website of wendo."}
+          property="og:url"
+          content={`https://www.wendoj.codes${router.asPath}`}
         />
+        <link
+          rel="canonical"
+          href={`https://www.wendoj.codes${router.asPath}`}
+        />
+        <meta property="og:type" content={meta.type} />
+        <meta property="og:site_name" content="WendoJ" />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:image" content={meta.image} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="WendoJ" />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter:description" content={meta.description} />
+        <meta name="twitter:image" content={meta.image} />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/icon-192x192.png" />
       </Head>
       <nav
         className={cn(
@@ -167,14 +195,14 @@ export default function Container(props: ContainerProps) {
                 {/* Links */}
                 <ul className="flex min-h-fit w-full flex-col items-start space-y-6 px-[22px] py-[58px]">
                   {navLinks.map((link, i) => (
-                    <NavItem
-                      key={link.href}
-                      href={link.href}
-                      text={link.text}
-                      i={i}
-                      className="text-xl"
-                      setIsOpen={setIsOpen}
-                    />
+                    <button key={link.href} onClick={() => setIsOpen(false)}>
+                      <NavItem
+                        href={link.href}
+                        text={link.text}
+                        i={i}
+                        className="text-xl"
+                      />
+                    </button>
                   ))}
                 </ul>
 
@@ -199,7 +227,7 @@ export default function Container(props: ContainerProps) {
           }
         `}</style>
       </nav>
-      <main className={cn("container", props.className)}>{props.children}</main>
+      <main className={cn("container", props.className)}>{children}</main>
       <Footer />
     </>
   );
