@@ -55,7 +55,7 @@
     @apply antialiased;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground cursor-wait;
   }
   section {
     scroll-margin-top: 60px;
