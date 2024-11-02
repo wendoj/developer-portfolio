@@ -28,10 +28,10 @@ Follow the steps below to clone and run this project on your local system:
 
 ```bash
 # Clone the repository
-$ git clone https://github.com/wendoj/portfolio.git
+$ git clone https://github.com/wendoj/developer-portfolio.git
 
 # Navigate to the project directory
-$ cd portfolio
+$ cd developer-portfolio
 
 # Remove current origin repository
 $ git remote remove origin
